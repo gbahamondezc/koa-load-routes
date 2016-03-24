@@ -2,8 +2,8 @@ const reader = require('../lib/reader.js');
 
 const chai = require('chai');
 const chaiPromised = require('chai-as-promised');
-const assert = require('assert');
-const should = chai.should();
+
+chai.should();
 const expect = chai.expect;
 
 chai.use(chaiPromised);
@@ -19,10 +19,10 @@ describe('reader.js - Read route files', function () {
     it('Expect throw exception of path must be a string', function () {
       expect(reader.bind(reader, {path : 10}))
         .to.throw('Path must be a string. Received 10');
-    })
+    });
 
     it('Expect throw exception of not found directory or file', function () {
-      expect(reader.bind(reader, { path : 'deioj' }))
+      expect(reader.bind(reader, {path : 'deioj'}))
         .to.throw('ENOENT');
     });
   });
@@ -32,7 +32,7 @@ describe('reader.js - Read route files', function () {
   describe('Asynchronous read', function() {
     it('Should return promise', function() {
       var promise = reader({
-        path  : 'test/routes/multiple',
+        path  : 'test/routes/multiple'
       });
       promise.should.have.property('then');
     });
@@ -60,7 +60,7 @@ describe('reader.js - Read route files', function () {
   describe('Single js file', function() {
     it('Should return array with length 1', function() {
       reader({
-        path  : 'test/routes/single.js',
+        path  : 'test/routes/single.js'
       })
       .should.be.a('array')
       .with

@@ -27,9 +27,26 @@ describe('loader.js - Routes loader', function () {
       request(app.listen())
         .get('/route-gen')
         .expect(200)
-        .end((err, res) => {
+        .end(err => {
           if (err) {
-            console.log(err);
+            return done(err);
+          }
+          done();
+        });
+    });
+
+    it('Should return status injected', function (done) {
+      var app = loader(new Koa(), {
+        path   : 'test/routes/single.js',
+        async  : false,
+        inject : 304
+      });
+
+      request(app.listen())
+        .get('/route-gen')
+        .expect(304)
+        .end(err => {
+          if (err) {
             return done(err);
           }
           done();
@@ -40,9 +57,9 @@ describe('loader.js - Routes loader', function () {
 
 
   describe('Multipe routes files', function () {
-     it('should GET -> status -> [200] - Async', function (done) {
+    it('should GET -> status -> [200] - Async', function (done) {
 
-      loader( new Koa(), {
+      loader(new Koa(), {
         path  : 'test/routes/multiple',
         async : true
       })
@@ -51,7 +68,7 @@ describe('loader.js - Routes loader', function () {
         request(app.listen())
           .get('/second-route-gen')
           .expect(200)
-          .end((err, res) => {
+          .end(err => {
             if (err) {
               console.log("err --> ", err);
               return done(err);
@@ -63,6 +80,8 @@ describe('loader.js - Routes loader', function () {
       .catch(err => {
         return done(err);
       });
+
     });
   });
+
 });

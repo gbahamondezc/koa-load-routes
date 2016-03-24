@@ -1,7 +1,15 @@
 {
   "extends": "xo-space",
   "rules" : {
-    "yoda" : [0]
+    "yoda" : [0],
+    "key-spacing" : [0],
+    "no-multiple-empty-lines" : [0],
+    "no-multi-spaces" : [0],
+    "space-before-function-paren" : [0],
+    "padded-blocks" : [0],
+    "no-new" : [0],
+    "generator-star-spacing" : [0],
+    "max-nested-callbacks": [2, {"maximum": 5}]
   },
   "env": {
     "mocha": true

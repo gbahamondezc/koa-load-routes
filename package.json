@@ -1,7 +1,7 @@
 {
   "name": "koa-load-routes",
-  "version": "0.0.0",
-  "description": "routes loader using koa-router module",
+  "version": "0.0.1",
+  "description": "Koa2 routes loader using koa-router@next module",
   "homepage": "https://github.com/gbahamondez/koa-load-routes",
   "author": {
     "name": "Gonzalo Bahamondez",

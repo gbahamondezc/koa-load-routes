@@ -7,7 +7,7 @@ describe('router.js - App routes generation', function() {
 
   it('Should return status -> [200] on /route-gen GET', function(done) {
     var readRes = reader({
-      path: 'test/routes/single.js',
+      path: 'test/routes/single.js'
     });
 
     var app = router(new Koa(), readRes);
@@ -15,7 +15,7 @@ describe('router.js - App routes generation', function() {
     request(app.listen())
       .get('/route-gen')
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) {
           console.log(err);
           return done(err);
