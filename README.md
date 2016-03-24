@@ -1,4 +1,5 @@
-# koa-load-routes [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# koa-load-routes
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > routes loader using koa-router module
 
 ## Installation
@@ -10,10 +11,9 @@ $ npm install --save koa-load-routes
 ## Usage
 
 ```js
-var koaLoadRoutes = require('koa-load-routes');
-
-koaLoadRoutes('Rainbow');
+const loader = require('koa-load-routes');
 ```
+
 ## License
 
 MIT © [Gonzalo Bahamondez](https://github.com/gbahamondez/)
