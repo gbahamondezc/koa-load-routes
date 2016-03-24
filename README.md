@@ -1,6 +1,10 @@
 # koa-load-routes
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status](https://coveralls.io/repos/github/gbahamondez/koa-load-routes/badge.svg?branch=master)](https://coveralls.io/github/gbahamondez/koa-load-routes?branch=master)
-> routes loader using koa-router module
+> [koa@2.x](https://github.com/koajs/koa/tree/v2.x) routes loader from file using [koa-router](https://github.com/alexmingoia/koa-router) module
+
+### Warning
+**Node.js 4.0** and **koa@2.x** or latest are requireds  to use this module.
+
 
 ## Installation
 
