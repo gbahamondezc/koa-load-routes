@@ -14,8 +14,40 @@ $ npm install --save koa-load-routes
 
 ## Usage
 
+#### app.js
 ```js
+const Koa = require('koa');
 const loader = require('koa-load-routes');
+
+var app = loader(new Koa(), {
+  path  : '/routes.js',
+  async : false
+});
+
+
+app.listen(3000, function() {
+  console.log('server started at http://127.0.0.1:3000/');
+});
+
+```
+
+#### routes.js (support generator functions too on koa@2.x)
+```js
+'use strict';
+
+module.exports = function () {
+
+  this.get('/', function *(next) {
+    yield next;
+    this.body = 'Im index :D';
+  })
+
+  this.get('/hello', function (ctx, next) {
+    ctx.body = 'Hello world';
+    return next();
+  });
+
+};
 ```
 
 ## License
