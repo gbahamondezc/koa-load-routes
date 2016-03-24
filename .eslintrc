@@ -1,0 +1,9 @@
+{
+  "extends": "xo-space",
+  "rules" : {
+    "yoda" : [0]
+  },
+  "env": {
+    "mocha": true
+  }
+}
