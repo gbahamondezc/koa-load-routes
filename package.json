@@ -12,6 +12,9 @@
     "lib"
   ],
   "main": "lib/loader.js",
+  "engines": {
+    "node": ">= 4"
+  },
   "keywords": [
     "koa",
     "router",
