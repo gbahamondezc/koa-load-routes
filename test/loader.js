@@ -35,13 +35,30 @@ describe('loader.js - Routes loader', function () {
         });
     });
 
-    it('Should return status injected', function (done) {
+    it('Should return status passed as first argument', function (done) {
       var app = loader(new Koa(), {
         path   : 'test/routes/single.js',
         async  : false,
-        inject : 304
+        args   : [304]
       });
 
+      request(app.listen())
+        .get('/route-gen')
+        .expect(304)
+        .end(err => {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
+    });
+
+    it('Should return status passed as first argument and body  passed as second arg', function (done) {
+      var app = loader(new Koa(), {
+        path   : 'test/routes/single.js',
+        async  : false,
+        args   : [304, {name : 'test'}]
+      });
       request(app.listen())
         .get('/route-gen')
         .expect(304)

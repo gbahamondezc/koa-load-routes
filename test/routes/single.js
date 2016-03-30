@@ -1,11 +1,14 @@
-module.exports = function ($someInjection) {
+module.exports = function ($status, $body) {
 
   this.get('/route-gen', function *(next) {
     yield next;
-    if ($someInjection) {
-      this.status = $someInjection;
+    if($status) {
+      this.status = $status;
     }
-    this.body = 'hello world from gen';
+    // if($body) {
+    //   console.log($body);
+    // }
+    this.body = "hello world";
   });
 
   this.get('/route-fn', function(ctx, next) {
