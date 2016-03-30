@@ -21,7 +21,8 @@ const loader = require('koa-load-routes');
 
 var app = loader(new Koa(), {
   path  : '/routes.js',
-  async : false
+  async : false,
+  args  : [304, {name : 'somename'}]
 });
 
 
@@ -35,11 +36,12 @@ app.listen(3000, function() {
 ```js
 'use strict';
 
-module.exports = function () {
+module.exports = function ($status, $body) {
 
   this.get('/', function *(next) {
     yield next;
-    this.body = 'Im index :D';
+    this.status = $status;
+    this.body = $body;
   })
 
   this.get('/hello', function (ctx, next) {
