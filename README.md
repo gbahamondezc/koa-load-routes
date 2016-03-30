@@ -22,7 +22,7 @@ const loader = require('koa-load-routes');
 var app = loader(new Koa(), {
   path  : '/routes.js',
   async : false,
-  args  : [304, {name : 'somename'}]
+  args  : [200, {name : 'somename'}]
 });
 
 
