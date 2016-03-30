@@ -57,11 +57,13 @@ describe('loader.js - Routes loader', function () {
       var app = loader(new Koa(), {
         path   : 'test/routes/single.js',
         async  : false,
-        args   : [304, {name : 'test'}]
+        args   : [200, {name : 'test'}]
       });
       request(app.listen())
         .get('/route-gen')
-        .expect(304)
+        .expect(200, {
+          name : 'test'
+        })
         .end(err => {
           if (err) {
             return done(err);

@@ -5,10 +5,12 @@ module.exports = function ($status, $body) {
     if($status) {
       this.status = $status;
     }
-    // if($body) {
-    //   console.log($body);
-    // }
-    this.body = "hello world";
+    if($body) {
+      this.body = $body;
+    }
+    else {
+      this.body = "hello world";
+    }
   });
 
   this.get('/route-fn', function(ctx, next) {
