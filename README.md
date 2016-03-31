@@ -19,9 +19,9 @@ $ npm install --save koa-load-routes
 const Koa = require('koa');
 const loader = require('koa-load-routes');
 
+// pass async: true will return a promise which resolves app
 var app = loader(new Koa(), {
   path  : '/routes.js',
-  async : false,
   args  : [200, {name : 'somename'}]
 });
 

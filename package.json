@@ -1,6 +1,6 @@
 {
   "name": "koa-load-routes",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Koa2 routes loader using koa-router@next module",
   "homepage": "https://github.com/gbahamondez/koa-load-routes",
   "author": {
@@ -38,7 +38,10 @@
     "koa": "^2.0.0-alpha.3",
     "supertest": "^1.2.0"
   },
-  "repository": "git@github.com:https://github.com/gbahamondez",
+  "repository": {
+    "type" : "git",
+    "url"  : "git+https://github.com/gbahamondez/koa-load-routes.git"
+  },
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"

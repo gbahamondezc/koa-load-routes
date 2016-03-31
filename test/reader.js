@@ -32,14 +32,16 @@ describe('reader.js - Read route files', function () {
   describe('Asynchronous read', function() {
     it('Should return promise', function() {
       var promise = reader({
-        path  : 'test/routes/multiple'
+        path  : 'test/routes/multiple',
+        async : true
       });
       promise.should.have.property('then');
     });
 
     it('Should resolve array of files', function() {
       reader({
-        path  : 'test/routes/multiple'
+        path  : 'test/routes/multiple',
+        async : true
       })
       .should
       .eventually
