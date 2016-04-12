@@ -10,19 +10,18 @@ const expect  = chai.expect;
 
 describe('loader.js - Routes loader', function () {
 
-  describe('Exceptions', function() {
-    it('Should throw \'Koa app as first parameter expected\' Exception', function () {
-      expect(loader.bind(loader)).to.throw('koa app as first parameter expected');
-    });
+  var app;
+  beforeEach(function() {
+    app = new Koa();
   });
 
   describe('Single route file', function () {
-    it('should GET -> status -> [200] - Sync', function (done) {
+    it('should GET -> status -> [200]', function (done) {
 
-      var app = loader(new Koa(), {
+      app.use(loader({
         path  : 'test/routes/single.js',
         async : false
-      });
+      }));
 
       request(app.listen())
         .get('/route-gen')
@@ -36,11 +35,10 @@ describe('loader.js - Routes loader', function () {
     });
 
     it('Should return status passed as first argument', function (done) {
-      var app = loader(new Koa(), {
+      app.use(loader({
         path   : 'test/routes/single.js',
-        async  : false,
         args   : [304]
-      });
+      }));
 
       request(app.listen())
         .get('/route-gen')
@@ -54,13 +52,34 @@ describe('loader.js - Routes loader', function () {
     });
 
     it('Should return status passed as first argument and body  passed as second arg', function (done) {
-      var app = loader(new Koa(), {
+
+      app.use(loader({
         path   : 'test/routes/single.js',
-        async  : false,
         args   : [200, {name : 'test'}]
-      });
+      }));
+
       request(app.listen())
         .get('/route-gen')
+        .expect(200, {
+          name : 'test'
+        })
+        .end(err => {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
+    });
+
+    it('Should add base to route', function(done) {
+      app.use(loader({
+        path   : 'test/routes/single.js',
+        args   : [200, {name : 'test'}],
+        base   : 'sample'
+      }));
+
+      request(app.listen())
+        .get('/sample/route-gen')
         .expect(200, {
           name : 'test'
         })
@@ -76,30 +95,47 @@ describe('loader.js - Routes loader', function () {
 
 
   describe('Multipe routes files', function () {
-    it('should GET -> status -> [200] - Async', function (done) {
+    it('should GET -> status -> [200]', function (done) {
 
-      loader(new Koa(), {
+      app.use(loader({
         path  : 'test/routes/multiple',
-        async : true
-      })
-      .then(app => {
+      }));
 
-        request(app.listen())
-          .get('/second-route-gen')
-          .expect(200)
-          .end(err => {
-            if (err) {
-              console.log("err --> ", err);
-              return done(err);
-            }
-            done();
-          });
+      request(app.listen())
+        .get('/second-route-gen')
+        .expect(200)
+        .end(err => {
+          if (err) {
+            console.log("err --> ", err);
+            return done(err);
+          }
+          done();
+        });
+    });
 
-      })
-      .catch(err => {
-        return done(err);
-      });
+    it('Multiple loader calls - should GET -> status -> [200]', function(done) {
 
+      app.use(loader({
+        path   : 'test/routes/single.js',
+        args   : [200, {name : 'test'}],
+        base   : 'sample'
+      }));
+
+      app.use(loader({
+        path  : 'test/routes/multiple',
+      }));
+
+      request(app.listen())
+        .get('/second-route-gen')
+        //.get('/sample/route-gen')
+        .expect(200)
+        .end(err => {
+          if (err) {
+            console.log("err --> ", err);
+            return done(err);
+          }
+          done();
+        });
     });
   });
 

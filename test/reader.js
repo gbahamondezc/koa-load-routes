@@ -28,37 +28,6 @@ describe('reader.js - Read route files', function () {
   });
 
 
-
-  describe('Asynchronous read', function() {
-    it('Should return promise', function() {
-      var promise = reader({
-        path  : 'test/routes/multiple',
-        async : true
-      });
-      promise.should.have.property('then');
-    });
-
-    it('Should resolve array of files', function() {
-      reader({
-        path  : 'test/routes/multiple',
-        async : true
-      })
-      .should
-      .eventually
-      .be
-      .a('array');
-    });
-
-    it('Should throw ENOENT exception', function() {
-      expect(reader.bind(reader, {
-        path  : 'some/fake/route',
-        async : false
-      }))
-      .to
-      .throw('ENOENT');
-    });
-  });
-
   describe('Single js file', function() {
     it('Should return array with length 1', function() {
       reader({
@@ -70,7 +39,7 @@ describe('reader.js - Read route files', function () {
     });
   });
 
-  describe('Synchronous read', function() {
+  describe('Multiple read', function() {
     it('Should return array of files', function() {
       var result = reader({
         path  : 'test/routes/multiple',
