@@ -2,13 +2,12 @@ module.exports = function ($status, $body) {
 
   this.get('/route-gen', function *(next) {
     yield next;
-    if($status) {
+    if ($status) {
       this.status = $status;
     }
-    if($body) {
+    if ($body) {
       this.body = $body;
-    }
-    else {
+    } else {
       this.body = "hello world";
     }
   });

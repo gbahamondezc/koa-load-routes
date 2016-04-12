@@ -3,10 +3,6 @@
 const loader  = require('../lib/loader.js');
 const Koa     = require('koa');
 const request = require('supertest');
-const chai    = require('chai');
-const expect  = chai.expect;
-
-
 
 describe('loader.js - Routes loader', function () {
 
@@ -98,7 +94,7 @@ describe('loader.js - Routes loader', function () {
     it('should GET -> status -> [200]', function (done) {
 
       app.use(loader({
-        path  : 'test/routes/multiple',
+        path  : 'test/routes/multiple'
       }));
 
       request(app.listen())
@@ -122,12 +118,11 @@ describe('loader.js - Routes loader', function () {
       }));
 
       app.use(loader({
-        path  : 'test/routes/multiple',
+        path  : 'test/routes/multiple'
       }));
 
       request(app.listen())
         .get('/second-route-gen')
-        //.get('/sample/route-gen')
         .expect(200)
         .end(err => {
           if (err) {
