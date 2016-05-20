@@ -1,6 +1,6 @@
 {
   "name": "koa-load-routes",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Koa2 middleware to load routes from files and dirs using koa-router@next module",
   "homepage": "https://github.com/gbahamondez/koa-load-routes",
   "author": {
