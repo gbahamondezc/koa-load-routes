@@ -102,7 +102,6 @@ describe('loader.js - Routes loader', function () {
         .expect(200)
         .end(err => {
           if (err) {
-            console.log("err --> ", err);
             return done(err);
           }
           done();
@@ -126,7 +125,6 @@ describe('loader.js - Routes loader', function () {
         .expect(200)
         .end(err => {
           if (err) {
-            console.log("err --> ", err);
             return done(err);
           }
           done();

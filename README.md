@@ -16,6 +16,27 @@ $ npm install --save koa-load-routes
 
 ## Usage
 
+
+### Options
+
+path
+firstMiddleware
+base 
+args
+
+- *String* **path**
+ - Path from where the module will try to load the routes, if is a file,  it will read the routes defined just inside of the file, otherwise, if is a directory, will read all .js files in the directory and load the routes inside each one.
+  
+- *Function|GeneratorFunction* **firstMiddleware**
+  - Middleware will be attached to each route loaded, can be a generator function or a normal function, this middleware will be attached previous to each route, useful for authentication middleware.
+
+- *String* **base**
+  - Adds the "base" string at the start of each  loaded route url.
+  
+- *Array* **args**
+  - Arguments to be pased inside the route main function, each array elements are passed as a independent argument (see examples below).
+ 
+ 
 Loading sync from file or directory
 #### app.js
 ```js
@@ -57,6 +78,23 @@ module.exports = function ($status, $body) {
   this.get('/hello', function (ctx, next) {
     ctx.body = 'Hello world';
     return next();
+  });
+  
+  // Routes chain
+  this.get('/hello2', function(ctx, next) {
+    ctx.body = "hello world 2";
+  })
+  .get('/hello3', function *(next) {
+    this.body = "hello world 3";
+  });
+  
+  // Multiple middlewares
+  this.get('/multiple', function(ctx, next) {
+    console.log('im the first one');
+    return next();
+  },
+  function *(next) {
+	this.body = "yey!";
   });
 
 };

@@ -8,7 +8,7 @@ module.exports = function ($status, $body) {
     if ($body) {
       this.body = $body;
     } else {
-      this.body = "hello world";
+      this.body = 'hello world';
     }
   });
 
