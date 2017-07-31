@@ -1,18 +1,17 @@
-'use strict';
-
 const loader  = require('../lib/loader.js');
 const Koa     = require('koa');
 const request = require('supertest');
 
-describe('loader.js - Routes loader', function () {
+describe('loader.js - Routes loader',  () => {
 
-  var app;
-  beforeEach(function() {
+  let app = null;
+
+  beforeEach(() => {
     app = new Koa();
   });
 
-  describe('Single route file', function () {
-    it('should GET -> status -> [200]', function (done) {
+  describe('Single route file',  () => {
+    it('should GET -> status -> [200]', done => {
 
       app.use(loader({
         path  : 'test/routes/single.js',
@@ -26,11 +25,11 @@ describe('loader.js - Routes loader', function () {
           if (err) {
             return done(err);
           }
-          done();
+          return done();
         });
     });
 
-    it('Should return status passed as first argument', function (done) {
+    it('Should return status passed as first argument', done => {
       app.use(loader({
         path   : 'test/routes/single.js',
         args   : [304]
@@ -43,31 +42,32 @@ describe('loader.js - Routes loader', function () {
           if (err) {
             return done(err);
           }
-          done();
+          return done();
         });
     });
 
-    it('Should return status passed as first argument and body  passed as second arg', function (done) {
+    it('Should return status passed as first argument and body  passed as second arg',
+      done => {
 
-      app.use(loader({
-        path   : 'test/routes/single.js',
-        args   : [200, {name : 'test'}]
-      }));
+        app.use(loader({
+          path   : 'test/routes/single.js',
+          args   : [200, {name : 'test'}]
+        }));
 
-      request(app.listen())
-        .get('/route-gen')
-        .expect(200, {
-          name : 'test'
-        })
-        .end(err => {
-          if (err) {
-            return done(err);
-          }
-          done();
-        });
-    });
+        request(app.listen())
+          .get('/route-gen')
+          .expect(200, {
+            name : 'test'
+          })
+          .end(err => {
+            if (err) {
+              return done(err);
+            }
+            return done();
+          });
+      });
 
-    it('Should add base to route', function(done) {
+    it('Should add base to route', done => {
       app.use(loader({
         path   : 'test/routes/single.js',
         args   : [200, {name : 'test'}],
@@ -83,15 +83,15 @@ describe('loader.js - Routes loader', function () {
           if (err) {
             return done(err);
           }
-          done();
+          return done();
         });
     });
   });
 
 
 
-  describe('Multipe routes files', function () {
-    it('should GET -> status -> [200]', function (done) {
+  describe('Multipe routes files', () => {
+    it('should GET -> status -> [200]', done => {
 
       app.use(loader({
         path  : 'test/routes/multiple'
@@ -104,11 +104,11 @@ describe('loader.js - Routes loader', function () {
           if (err) {
             return done(err);
           }
-          done();
+          return done();
         });
     });
 
-    it('Multiple loader calls - should GET -> status -> [200]', function(done) {
+    it('Multiple loader calls - should GET -> status -> [200]', done => {
 
       app.use(loader({
         path   : 'test/routes/single.js',
@@ -127,9 +127,8 @@ describe('loader.js - Routes loader', function () {
           if (err) {
             return done(err);
           }
-          done();
+          return done();
         });
     });
   });
-
 });

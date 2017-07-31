@@ -1,7 +1,7 @@
 {
   "name": "koa-load-routes",
-  "version": "1.1.1",
-  "description": "Koa2 middleware to load routes from files and dirs using koa-router@next module",
+  "version": "2.0.0",
+  "description": "Koa@2.x middleware to load routes from files and dirs using koa-router module",
   "homepage": "https://github.com/gbahamondez/koa-load-routes",
   "author": {
     "name": "Gonzalo Bahamondez",
@@ -13,7 +13,8 @@
   ],
   "main": "lib/loader.js",
   "engines": {
-    "node": ">= 4"
+    "node": ">= 8.2.1",
+    "npm": "5.3.0"
   },
   "keywords": [
     "koa",
@@ -22,21 +23,19 @@
     "koa-router"
   ],
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-as-promised": "^5.3.0",
-    "eslint": "^2.1.0",
-    "eslint-config-xo-space": "^0.13.0",
+    "chai": "^4.1.0",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^4.3.0",
     "gulp": "^3.9.0",
     "gulp-coveralls": "^0.1.0",
-    "gulp-eslint": "^2.0.0",
+    "gulp-eslint": "^4.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-istanbul": "^0.10.4",
+    "gulp-istanbul": "^1.1.2",
     "gulp-line-ending-corrector": "^1.0.1",
     "gulp-mocha": "^2.0.0",
     "gulp-nsp": "^2.4.1",
     "gulp-plumber": "^1.0.0",
-    "koa": "^2.0.0-alpha.3",
-    "supertest": "^1.2.0"
+    "supertest": "^3.0.0"
   },
   "repository": {
     "type": "git",
@@ -48,10 +47,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "koa": "^2.0.0",
-    "koa-convert": "^1.2.0",
-    "koa-mount": "^2.0.0",
-    "koa-router": "^7.0.1",
-    "readdir-plus": "^0.4.1"
+    "koa": "^2.3.0",
+    "koa-mount": "^3.0.0",
+    "koa-router": "^7.2.1",
+    "readdir-plus": "^1.0.0"
   }
 }

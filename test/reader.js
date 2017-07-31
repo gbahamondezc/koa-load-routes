@@ -1,5 +1,4 @@
 const reader = require('../lib/reader.js');
-
 const chai = require('chai');
 const chaiPromised = require('chai-as-promised');
 
@@ -8,39 +7,39 @@ const expect = chai.expect;
 
 chai.use(chaiPromised);
 
-describe('reader.js - Read route files', function () {
+describe('reader.js - Read route files', () => {
 
-  describe('Exceptions', function() {
-    it('Expect throw exception of missing path ', function () {
+  describe('Exceptions', () => {
+    it('Expect throw exception of missing path ', () => {
       expect(reader.bind(reader, {}))
         .to.throw('Routes path must be provided');
     });
 
-    it('Expect throw exception of path must be a string', function () {
+    it('Expect throw exception of path must be a string', () => {
       expect(reader.bind(reader, {path : 10}))
         .to.throw('Path must be a string. Received 10');
     });
 
-    it('Expect throw exception of not found directory or file', function () {
+    it('Expect throw exception of not found directory or file', () => {
       expect(reader.bind(reader, {path : 'deioj'}))
         .to.throw('ENOENT');
     });
   });
 
 
-  describe('Single js file', function() {
-    it('Should return array with length 1', function() {
+  describe('Single js file', () => {
+    it('Should return array with length 1', () => {
       reader({
         path  : 'test/routes/single.js'
       })
-      .should.be.a('array')
-      .with
-      .length(1);
+        .should.be.a('array')
+        .with
+        .length(1);
     });
   });
 
-  describe('Multiple read', function() {
-    it('Should return array of files', function() {
+  describe('Multiple read', () => {
+    it('Should return array of files', () => {
       var result = reader({
         path  : 'test/routes/multiple',
         async : false

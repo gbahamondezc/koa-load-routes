@@ -4,9 +4,9 @@ const request = require('supertest');
 const Koa = require('koa');
 const mount = require('koa-mount');
 
-describe('router.js - App routes generation', function() {
+describe('router.js - App routes generation', () => {
 
-  it('Should return status -> [200] on /route-gen GET', function(done) {
+  it('Should return status -> [200] on /route-gen GET', done => {
 
     var app = new Koa();
 
@@ -23,10 +23,9 @@ describe('router.js - App routes generation', function() {
       .expect(200)
       .end(err => {
         if (err) {
-          console.log(err);
           return done(err);
         }
-        done();
+        return done();
       });
   });
 });
