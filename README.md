@@ -108,7 +108,7 @@ MIT © [Gonzalo Bahamondez](https://github.com/gbahamondez/)
 
 [npm-image]: https://badge.fury.io/js/koa-load-routes.svg
 [npm-url]: https://npmjs.org/package/koa-load-routes
-[travis-image]: https://travis-ci.org/gbahamondez/koa-load-routes.svg?branch=master
-[travis-url]: https://travis-ci.org/gbahamondez/koa-load-routes
-[daviddm-image]: https://david-dm.org/gbahamondez/koa-load-routes.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/gbahamondez/koa-load-routes
+[travis-image]: https://travis-ci.org/gbahamondezc/koa-load-routes.svg?branch=master
+[travis-url]: https://travis-ci.org/gbahamondezc/koa-load-routes
+[daviddm-image]: https://david-dm.org/gbahamondezc/koa-load-routes.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/gbahamondezc/koa-load-routes
