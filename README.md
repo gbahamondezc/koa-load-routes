@@ -5,7 +5,7 @@
 
 
 ### Warning
-**Node.js 4.0** and **koa@next** or latest are requireds  to use this module.
+**Node.js 8.0** and **koa@2.0** or latest are requireds  to use this module.
 
 
 ## Installation
@@ -21,22 +21,22 @@ $ npm install --save koa-load-routes
 
 path
 firstMiddleware
-base 
+base
 args
 
 - *String* **path**
  - Path from where the module will try to load the routes, if is a file,  it will read the routes defined just inside of the file, otherwise, if is a directory, will read all .js files in the directory and load the routes inside each one.
-  
-- *Function|GeneratorFunction* **firstMiddleware**
+
+- *Function|AsyncFunction* **firstMiddleware**
   - Middleware will be attached to each route loaded, can be a generator function or a normal function, this middleware will be attached previous to each route, useful for authentication middleware.
 
 - *String* **base**
   - Adds the "base" string at the start of each  loaded route url.
-  
+
 - *Array* **args**
   - Arguments to be pased inside the route main function, each array elements are passed as a independent argument (see examples below).
- 
- 
+
+
 Loading sync from file or directory
 #### app.js
 ```js
@@ -69,8 +69,8 @@ app.listen(3000, function() {
 
 module.exports = function ($status, $body) {
 
-  this.get('/', function *(next) {
-    yield next;
+  this.get('/', async (ctx, next) => {
+    await next;
     this.status = $status;
     this.body = $body;
   })
@@ -79,7 +79,7 @@ module.exports = function ($status, $body) {
     ctx.body = 'Hello world';
     return next();
   });
-  
+
   // Routes chain
   this.get('/hello2', function(ctx, next) {
     ctx.body = "hello world 2";
@@ -87,7 +87,7 @@ module.exports = function ($status, $body) {
   .get('/hello3', function *(next) {
     this.body = "hello world 3";
   });
-  
+
   // Multiple middlewares
   this.get('/multiple', function(ctx, next) {
     console.log('im the first one');
