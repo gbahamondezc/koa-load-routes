@@ -93,10 +93,9 @@ module.exports = function ($status, $body) {
     console.log('im the first one');
     return next();
   },
-  function *(next) {
-	this.body = "yey!";
+  (ctx, next) => {
+	  this.body = "yey!";
   });
-
 };
 ```
 
