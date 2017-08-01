@@ -38,13 +38,30 @@ describe('reader.js - Read route files', () => {
     });
   });
 
-  describe('Multiple read', () => {
-    it('Should return array of files', () => {
+  describe('Multiple read', function () {
+    it('Should return array of files without routes in sub directories', function () {
       var result = reader({
-        path  : 'test/routes/multiple',
-        async : false
+        path: 'test/routes/multiple',
+        recursive: false,
+        async: false
       });
       result.should.be.a('array');
+      expect(`${__dirname}/routes/multiple/sub/subRoute.js`)
+        .to.not.be.oneOf(result);
+    });
+  });
+
+  describe('Multiple read with recursion', function() {
+    it('Should return array of files with routes in sub directories', function() {
+      var result = reader({
+        path      : 'test/routes/multiple',
+        recursive : true,
+        async     : false
+      });
+      result.should.be.a('array');
+
+      expect(`${__dirname}/routes/multiple/sub/subRoute.js`)
+        .to.be.oneOf(result);
     });
   });
 });
