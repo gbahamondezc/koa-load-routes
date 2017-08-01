@@ -40,8 +40,6 @@ args
 Loading sync from file or directory
 #### app.js
 ```js
-'use strict';
-
 const Koa = require('koa');
 const loader = require('koa-load-routes');
 
@@ -65,8 +63,6 @@ app.listen(3000, function() {
 
 #### routes.js (support generator functions even on koa@2.x)
 ```js
-'use strict';
-
 module.exports = function ($status, $body) {
 
   this.get('/', async (ctx, next) => {
