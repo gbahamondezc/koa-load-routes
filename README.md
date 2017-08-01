@@ -1,12 +1,12 @@
 # koa-load-routes
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status](https://coveralls.io/repos/github/gbahamondez/koa-load-routes/badge.svg?branch=master)](https://coveralls.io/github/gbahamondez/koa-load-routes?branch=master)
 
-[koa@next](https://github.com/koajs/koa/tree/v2.x) middleware to load routes from files and directories using [koa-router@next](https://github.com/alexmingoia/koa-router) module
+[koa@2.x](https://github.com/koajs/koa) middleware to load routes from files and directories using [koa-router](https://github.com/alexmingoia/koa-router) module
 
 
 ### Warning
-**Node.js 8.0** and **koa@2.0** or latest are requireds  to use this module.
-
+- **Node.js 8.0** and **koa@2.0** or latest are required to use this module.
+- **V2.0** not support **Generator Functions** anymore (in favor of Async Functions).
 
 ## Installation
 
@@ -82,10 +82,10 @@ module.exports = function ($status, $body) {
 
   // Routes chain
   this.get('/hello2', function(ctx, next) {
-    ctx.body = "hello world 2";
+    ctx.body = 'hello world 2';
   })
   .get('/hello3', function *(next) {
-    this.body = "hello world 3";
+    this.body = 'hello world 3';
   });
 
   // Multiple middlewares
@@ -94,7 +94,7 @@ module.exports = function ($status, $body) {
     return next();
   },
   (ctx, next) => {
-	  this.body = "yey!";
+	  this.body = 'yey!';
   });
 };
 ```
