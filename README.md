@@ -6,12 +6,17 @@
 
 ### Warning
 - **Node.js 8.0** and **koa@2.0** or latest are required to use this module.
-- **Since V 2.0** koa-load-routes not support **Generator Functions** anymore (in favor of Async Functions).
+- **Since V2.0** koa-load-routes not support **Generator Functions** anymore (in favor of Async Functions).
 
 ## Installation
 
 ```sh
 $ npm install --save koa-load-routes
+```
+or
+
+```sh
+$ yarn add koa-load-routes
 ```
 
 ## Usage
@@ -19,25 +24,24 @@ $ npm install --save koa-load-routes
 
 ### Options
 
-path
-firstMiddleware
-base
-args
+- **String ->** *path (required)*
+    - Path from where the module will try to load the routes, if is a file,  it will read the routes defined just inside of the file, otherwise, if is a directory, will read all .js files in the directory and load the routes inside each one.
 
-- *String* **path**
- - Path from where the module will try to load the routes, if is a file,  it will read the routes defined just inside of the file, otherwise, if is a directory, will read all .js files in the directory and load the routes inside each one.
+- **Boolean ->** *recursive (optional, default: false)*
+  - If this argument is true the module will search route files recursive trhoug directories.
 
-- *Function|AsyncFunction* **firstMiddleware**
-  - Middleware will be attached to each route loaded, can be a generator function or a normal function, this middleware will be attached previous to each route, useful for authentication middleware.
+- **Array[Function|AsyncFunction] ->** *middlewares (optional)*
+  - A list of middlewares which will be added to each route loaded, can be Array of async functions or a normal functions or mixed, this middlewares will be attached previous to each route, useful by example for authentication middlewares.
 
-- *String* **base**
+- **String ->** *base (optional)*
   - Adds the "base" string at the start of each  loaded route url.
 
-- *Array* **args**
+- **Array[any] ->** *args (optional)*
   - Arguments to be pased inside the route main function, each array elements are passed as a independent argument (see examples below).
 
+- **String ->** *suffix (optional, default: '.js')*
+  - If this argument is passed the module will load only the files which ends with the passed **suffix + .js**, by default if **suffix** is not supplied will try to load all files with **.js** extension.
 
-Loading sync from file or directory
 #### app.js
 ```js
 const Koa = require('koa');
@@ -61,7 +65,7 @@ app.listen(3000, function() {
 
 ```
 
-#### routes.js (support generator functions even on koa@2.x)
+#### routes.js
 ```js
 module.exports = function ($status, $body) {
 
@@ -90,7 +94,7 @@ module.exports = function ($status, $body) {
     return next();
   },
   (ctx, next) => {
-	  ctx.body = 'yey!';
+    ctx.body = 'yey!';
   });
 };
 ```

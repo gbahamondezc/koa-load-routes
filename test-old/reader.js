@@ -7,17 +7,17 @@ const expect = chai.expect;
 
 chai.use(chaiPromised);
 
-describe('reader.js - Read route files', () => {
+describe.only('reader.js - Read route files', () => {
 
-  describe('Exceptions', () => {
+  describe.skip('Exceptions', () => {
     it('Expect throw exception of missing path ', () => {
       expect(reader.bind(reader, {}))
-        .to.throw('Routes path must be provided');
+        .to.throw('Path for read routes is missing, add a {path} option');
     });
 
     it('Expect throw exception of path must be a string', () => {
       expect(reader.bind(reader, {path : 10}))
-        .to.throw('Path must be a string. Received 10');
+        .to.throw('path option must be a string');
     });
 
     it('Expect throw exception of not found directory or file', () => {
@@ -27,10 +27,17 @@ describe('reader.js - Read route files', () => {
   });
 
 
-  describe('Single js file', () => {
+  describe.only('Single js file', () => {
     it('Should return array with length 1', () => {
+
+      console.info('result => ', reader({
+        path: 'test/routes/single.js',
+        suffix: 'pico'
+      }));
+
       reader({
-        path  : 'test/routes/single.js'
+        path: 'test/routes/single.js',
+        suffix: 'pico'
       })
         .should.be.a('array')
         .with
@@ -38,7 +45,7 @@ describe('reader.js - Read route files', () => {
     });
   });
 
-  describe('Multiple read', function () {
+  describe.skip('Multiple read', function () {
     it('Should return array of files without routes in sub directories', function () {
       var result = reader({
         path: 'test/routes/multiple',
@@ -51,7 +58,7 @@ describe('reader.js - Read route files', () => {
     });
   });
 
-  describe('Multiple read with recursion', function() {
+  describe.skip('Multiple read with recursion', function() {
     it('Should return array of files with routes in sub directories', function() {
       var result = reader({
         path      : 'test/routes/multiple',
