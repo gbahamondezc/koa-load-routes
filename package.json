@@ -1,7 +1,7 @@
 {
   "name": "koa-load-routes",
   "version": "3.0.0",
-  "description": "Koa@2.x middleware to load routes from files and dirs using koa-router module",
+  "description": "koa@latest middleware to load routes from files and dirs using koa-router module",
   "homepage": "https://github.com/gbahamondez/koa-load-routes",
   "author": {
     "name": "Gonzalo Bahamondez",
@@ -14,7 +14,7 @@
   "main": "lib/loader.js",
   "engines": {
     "node": ">= 8.2.1",
-    "npm": "5.3.0"
+    "npm": ">=5.3.0"
   },
   "keywords": [
     "koa",
@@ -24,14 +24,10 @@
   ],
   "devDependencies": {
     "ava": "^0.22.0",
-    "eslint": "^4.7.0",
-    "gulp": "^3.9.0",
-    "gulp-coveralls": "^0.1.0",
+    "coveralls": "^2.13.1",
+    "eslint": "^4.7.1",
     "gulp-eslint": "^4.0.0",
-    "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-line-ending-corrector": "^1.0.1",
-    "gulp-nsp": "^2.4.1",
-    "gulp-plumber": "^1.0.0",
+    "koa-logger": "^3.0.1",
     "nyc": "^11.2.1",
     "supertest": "^3.0.0"
   },
@@ -40,16 +36,20 @@
     "url": "git+https://github.com/gbahamondez/koa-load-routes.git"
   },
   "scripts": {
-    "prepublish": "gulp prepublish",
-    "test": "gulp"
+    "prepublish": "nsp check",
+    "lint": "eslint ./lib/**/*.js",
+    "test": "node_modules/.bin/nyc --reporter=lcov --reporter=text node node_modules/.bin/ava -v ./test/**/*.ava.test.js",
+    "test:coverage": "node_modules/.bin/nyc --reporter=lcov --reporter=text-lcov node node_modules/.bin/ava -v ./test/**/*.ava.test.js | coveralls",
+    "test:reader": "ava -w -v ./test/**/reader.ava.test.js",
+    "test:loader": "ava -w -v ./test/**/loader.ava.test.js",
+    "test:router": "ava -w -v ./test/**/router.ava.test.js"
   },
   "license": "MIT",
   "dependencies": {
     "glob-promise": "^3.1.0",
-    "global": "^4.3.2",
     "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
     "koa-mount": "^3.0.0",
-    "koa-router": "^7.2.1",
-    "npm-check": "^5.4.5"
+    "koa-router": "^7.2.1"
   }
 }

@@ -2,6 +2,7 @@ module.exports = function ($status, $body) {
 
   this.get('/route-gen', async (ctx, next) => {
     await next;
+
     if ($status) {
       ctx.status = $status;
     }
