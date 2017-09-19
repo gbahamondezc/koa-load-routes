@@ -1,12 +1,14 @@
 # koa-load-routes
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status](https://coveralls.io/repos/github/gbahamondez/koa-load-routes/badge.svg?branch=master)](https://coveralls.io/github/gbahamondez/koa-load-routes?branch=master)
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status](https://coveralls.io/repos/github/gbahamondezc/koa-load-routes/badge.svg?branch=master)](https://coveralls.io/github/gbahamondezc/koa-load-routes?branch=master)
 
-[koa@2.x](https://github.com/koajs/koa) middleware to load routes from files and directories using [koa-router](https://github.com/alexmingoia/koa-router) module
+[Koa](https://github.com/koajs/koa) middleware to load routes from files and directories using [koa-router](https://github.com/alexmingoia/koa-router) module
 
 
 ### Warning
-- **Node.js 8.0** and **koa@2.0** or latest are required to use this module.
-- **Since V2.0** koa-load-routes not support **Generator Functions** anymore (in favor of Async Functions).
+- **Node.js 8.0** and **koa@2.x** or latest are required to use this module.
+- **Since v2.0** koa-load-routes not support **Generator Functions** anymore (in favor of [Async Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)).
+- **Since v3.0** ***path*** option must be a absolute path
+- **Since v3.0** ***firstMiddleware*** option was removed in favor of ***middlewares*** option.
 
 ## Installation
 
@@ -19,10 +21,7 @@ or
 $ yarn add koa-load-routes
 ```
 
-## Usage
-
-
-### Options
+##### Options
 
 - **String ->** *path (required)*
     - Path from where the module will try to load the routes, if is a file,  it will read the routes defined just inside of the file, otherwise, if is a directory, will read all .js files in the directory and load the routes inside each one.
@@ -42,7 +41,10 @@ $ yarn add koa-load-routes
 - **String ->** *suffix (optional, default: '.js')*
   - If this argument is passed the module will load only the files which ends with the passed **suffix + .js**, by default if **suffix** is not supplied will try to load all files with **.js** extension.
 
-#### app.js
+
+### Usage
+
+###### app.js
 ```js
 const Koa = require('koa');
 const loader = require('koa-load-routes');
@@ -54,42 +56,42 @@ var app = new Koa();
  */
 
 app.use(loader({
-  path  : '/routes.js',
+  path  : __dirname + '/routes.js',
   args  : [200, {name : 'somename'}],
   // base : 'api'
 }));
 
-app.listen(3000, function() {
+app.listen(3000, () => {
   console.log('server started at http://127.0.0.1:3000/');
 });
 
 ```
 
-#### routes.js
+###### routes.js
 ```js
 module.exports = function ($status, $body) {
 
   this.get('/', async (ctx, next) => {
-    await next;
+    await next();
     ctx.status = $status;
     ctx.body = $body;
   })
 
-  this.get('/hello', function (ctx, next) {
+  this.get('/hello', (ctx, next) => {
     ctx.body = 'Hello world';
     return next();
   });
 
   // Routes chain
-  this.get('/hello2', function(ctx, next) {
+  this.get('/hello2', (ctx, next) => {
     ctx.body = 'hello world 2';
   })
-  .get('/hello3', function(ctx, next) {
+  .get('/hello3', (ctx, next) => {
     ctx.body = 'hello world 3';
   });
 
   // Multiple middlewares
-  this.get('/multiple', function(ctx, next) {
+  this.get('/multiple', (ctx, next) => {
     console.log('im the first one');
     return next();
   },
@@ -102,7 +104,7 @@ module.exports = function ($status, $body) {
 
 ## License
 
-MIT © [Gonzalo Bahamondez](https://github.com/gbahamondez/)
+MIT © [Gonzalo Bahamondez](https://github.com/gbahamondezc/)
 
 
 [npm-image]: https://badge.fury.io/js/koa-load-routes.svg
