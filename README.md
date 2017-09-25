@@ -48,17 +48,33 @@ $ yarn add koa-load-routes
 ```js
 const Koa = require('koa');
 const loader = require('koa-load-routes');
+const authMiddleware = require('./auth-middleware');
+
+// Some module containing business logic and db access
+const Interactors = require('./interactors');
 
 var app = new Koa();
 
-/* If path is a directory, loader will read files inside
- * to load routes in each file.
- */
+// Loading public routes
+app.use(route({
+  path: `${path.resolve()}/src/resources/public`,
+  recursive: true,
+  // Add /api/ at start of each loaded endpoint
+  base: 'api',
+  // Load files only ending with route.js
+  suffix: 'route',
+  // Injecting your business logic module
+  args: [Interactors]
+}));
 
-app.use(loader({
-  path  : __dirname + '/routes.js',
-  args  : [200, {name : 'somename'}],
-  // base : 'api'
+// Loading private routes with auth middleware
+app.use(route({
+  path: `${path.resolve()}/src/resources/account`,
+  recursive: true,
+  base: 'api',
+  suffix: 'route',
+  middlewares : [authMiddleware()],
+  args: [Interactors]
 }));
 
 app.listen(3000, () => {
@@ -67,15 +83,36 @@ app.listen(3000, () => {
 
 ```
 
-###### routes.js
-```js
-module.exports = function ($status, $body) {
+###### src/resources/public/login.route.js
 
-  this.get('/', async (ctx, next) => {
-    await next();
-    ctx.status = $status;
-    ctx.body = $body;
-  })
+```js
+module.exports = function (Interactors) {
+
+  // Authentication endpoint
+  this.post('/login', async ctx => {
+
+    let userAccount = await Interactors.userAccount
+      .getByEmail(ctx.request.body.email);
+
+    if (!userAccount) {
+      ctx.throw(404, 'Account not found');
+    }
+
+    if (ctx.body.password !== userAccount.password) {
+      ctx.throw(403, 'Wrong Email/Password combination');
+    }
+
+   /*
+    * You can create some kind of auth token here to
+    * send it in body with user account info.
+    * This is just an example
+    */
+    ctx.body = userAccount;
+  });
+
+
+
+  // Other possible routes examples
 
   this.get('/hello', (ctx, next) => {
     ctx.body = 'Hello world';
@@ -91,7 +128,7 @@ module.exports = function ($status, $body) {
   });
 
   // Multiple middlewares
-  this.get('/multiple', (ctx, next) => {
+  this.post('/hello4', (ctx, next) => {
     console.log('im the first one');
     return next();
   },
