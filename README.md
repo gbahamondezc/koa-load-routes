@@ -49,6 +49,7 @@ $ yarn add koa-load-routes
 const Koa = require('koa');
 const loader = require('koa-load-routes');
 const authMiddleware = require('./auth-middleware');
+const path = require('path');
 
 // Some module containing business logic and db access
 const Interactors = require('./interactors');
